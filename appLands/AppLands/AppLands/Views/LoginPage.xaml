@@ -94,16 +94,19 @@
                     BackgroundColor="Navy"          
                     Command="{Binding LoginCommand}"
                     HeightRequest="50"
-                    HorizontalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"  
+                    IsEnabled="{Binding IsEnabled}"
                     Text="Login.!"
                     TextColor="White"
                     VerticalOptions="CenterAndExpand">
-                    </Button>
+                    </Button>   
+
                     <Button 
                     BorderRadius="25"  
                     BackgroundColor="CornflowerBlue" 
                     HeightRequest="50"
                     HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding IsEnabled}"
                     Text="Register.!"
                     TextColor="White">
                     </Button>
