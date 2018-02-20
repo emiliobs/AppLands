@@ -3,22 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppLands.Views.LoginPage"       
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Longin.....">
+             Title="Lands.....">
     <ContentPage.Content>
         
         <ScrollView>
 
-            <StackLayout Padding="10">
+            <StackLayout Padding="5">
 
-                <Label Text="Lands.!"
+                <!--<Label Text="Lands.!"
                    FontSize="Large"
                    FontAttributes="Bold" 
                    HorizontalOptions="Center"
                    VerticalOptions="Center" 
-                  />
+                  />-->
                 <Image Source="onu" WidthRequest="200"></Image>
 
-                <Grid Margin="0,5">
+                <Grid Margin="10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="*"/>
                         <RowDefinition  Height="*"/>
@@ -76,12 +76,13 @@
                        TextColor="DodgerBlue">
                 </Label>
 
-                <StackLayout Margin="20,0">
+                <StackLayout Margin="20,0" Orientation="Horizontal">
 
                     <Button 
                     BorderRadius="25"  
                     BackgroundColor="Navy"  
                     HeightRequest="50"
+                        HorizontalOptions="FillAndExpand"
                     Text="Login.!"
                     TextColor="White"
                 >
@@ -90,6 +91,7 @@
                     BorderRadius="25"  
                     BackgroundColor="CornflowerBlue" 
                     HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
                     Text="Register.!"
                     TextColor="White">
                     </Button>
