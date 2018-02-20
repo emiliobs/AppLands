@@ -6,7 +6,7 @@
              Title="Lands.....">
     <ContentPage.Content>
         
-        <ScrollView>
+        <ScrollView BindingContext="{Binding Login}">
 
             <StackLayout Padding="5">
 
@@ -35,12 +35,13 @@
                        FontAttributes="Bold"
                     Grid.Row="0"
                     Grid.Column="0"
-                    Text="E-mail:"/>
+                    Text="E-mail:"/> 
+
                     <Entry
-                    
                     Grid.Row="0"
                     Grid.Column="1"
                     Keyboard="Email"
+                    Text="{Binding Email, Mode=TwoWay}"
                     Placeholder="Enter your Email.....">
                     </Entry>
 
@@ -55,13 +56,17 @@
                     VerticalOptions="Center"
                     Grid.Row="1"
                     Grid.Column="1"
-                    IsPassword="True"
+                    IsPassword="True" 
+                    Text="{Binding Password, Mode=TwoWay}"
                     Placeholder="Enter your Password.....">
                     </Entry>
 
                 </Grid>    
 
-                <ActivityIndicator VerticalOptions="CenterAndExpand"></ActivityIndicator>  
+                <ActivityIndicator 
+                    VerticalOptions="CenterAndExpand"
+                    IsRunning="{Binding IsRunning, Mode=TwoWay}">
+                </ActivityIndicator>  
 
                 <StackLayout Orientation="Horizontal" Margin="10, 0">
                     <Label 
@@ -69,7 +74,12 @@
                     Text="Rememberme on this device."
                         VerticalOptions="CenterAndExpand">
                     </Label>
-                    <Switch  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Switch>
+                    <Switch  
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="End"
+                        IsToggled="{Binding IsRemember, Mode=TwoWay}">
+                    </Switch> 
+
                 </StackLayout>   
                      
                 <Label Text="Forgot your Password....."
@@ -81,7 +91,8 @@
 
                     <Button 
                     BorderRadius="25"  
-                    BackgroundColor="Navy"  
+                    BackgroundColor="Navy"          
+                    Command="{Binding LoginCommand}"
                     HeightRequest="50"
                     HorizontalOptions="FillAndExpand"
                     Text="Login.!"
