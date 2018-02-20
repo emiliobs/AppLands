@@ -59,17 +59,22 @@
                     Placeholder="Enter your Password.....">
                     </Entry>
 
-                </Grid>
+                </Grid>    
+
+                <ActivityIndicator></ActivityIndicator>  
 
                 <StackLayout Orientation="Horizontal" Margin="10, 0">
                     <Label 
                     HorizontalOptions="StartAndExpand"
-                    Text="Rememberme in this device.">
+                    Text="Rememberme on this device.">
                     </Label>
                     <Switch HorizontalOptions="End"></Switch>
-                </StackLayout>
-
-                <ActivityIndicator></ActivityIndicator>
+                </StackLayout>   
+                     
+                <Label Text="Forgot your Password....."
+                       HorizontalOptions="Center"
+                       TextColor="DodgerBlue">
+                </Label>
 
                 <StackLayout Margin="20,0">
 
