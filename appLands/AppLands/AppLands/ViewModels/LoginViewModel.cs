@@ -1,17 +1,11 @@
 ﻿
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using AppLands.Annotations;
-using GalaSoft.MvvmLight.Command;
-using Xamarin.Forms;
 
 namespace AppLands.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using GalaSoft.MvvmLight.Command;
+    using Xamarin.Forms;
     using System.Windows.Input;
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : BaseViewModel
     {
         #region Atributtes
 
@@ -36,14 +30,7 @@ namespace AppLands.ViewModels
 
             set
             {
-                if (this.password != value)
-                {
-                    this.password = value;
-
-                   OnPropertyChanged(this.Password);
-                }
-
-               
+                if (password != value) SetValue(ref password, value);
             }
         }
 
@@ -52,14 +39,9 @@ namespace AppLands.ViewModels
             get => this.isRunning;
             set
             {
-                if (isRunning != value)
-                {
-                    isRunning = value;
-
-                    OnPropertyChanged(this.IsRunning.ToString());
-                }
+                if (this.isRunning != value) SetValue(ref isRunning, value);
             }
-            
+
         }
 
         public bool IsRemember
@@ -72,12 +54,8 @@ namespace AppLands.ViewModels
         {
             set
             {
-                if (isEnabled != value)
-                {
-                    isEnabled = value;
-
-                    OnPropertyChanged(this.IsEnabled.ToString());
-                }
+                if (isEnabled != value) SetValue(ref isEnabled, value);
+                
             }
             get => isEnabled;
         }
@@ -153,13 +131,13 @@ namespace AppLands.ViewModels
         #endregion
 
         #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //[NotifyPropertyChangedInvocator]
+        //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
         #endregion
     }
 }
