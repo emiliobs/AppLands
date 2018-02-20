@@ -1,5 +1,7 @@
 ﻿
 
+using AppLands.Views;
+
 namespace AppLands.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
@@ -13,6 +15,7 @@ namespace AppLands.ViewModels
         private string password;
         private bool isRunning;
         private bool isEnabled;
+        private string email;
 
         #endregion
 
@@ -20,8 +23,12 @@ namespace AppLands.ViewModels
 
         public string Email
         {
-            get;
-            set;
+            get => this.email;
+            set
+            {
+                if (this.email != value) SetValue(ref email, value);
+
+            }
         }
 
         public string Password
@@ -55,7 +62,7 @@ namespace AppLands.ViewModels
             set
             {
                 if (isEnabled != value) SetValue(ref isEnabled, value);
-                
+
             }
             get => isEnabled;
         }
@@ -67,6 +74,9 @@ namespace AppLands.ViewModels
         {
             this.IsRemember = true;
             this.IsEnabled = true;
+
+            this.Email = "barrera_emilio@hotmail.com";
+            this.Password = "Eabs123.";
         }
         #endregion
 
@@ -77,7 +87,7 @@ namespace AppLands.ViewModels
             get { return new RelayCommand(Login); }
         }
 
-       
+
 
         #endregion
 
@@ -125,7 +135,19 @@ namespace AppLands.ViewModels
                 return;
             }
 
-            await Application.Current.MainPage.DisplayAlert("OK", "Fuck yeahh", "Accept");
+            //await Application.Current.MainPage.DisplayAlert("OK", "Fuck yeahh", "Accept");
+            
+            //clear text:
+            this.Email = string.Empty;
+            this.Password = string.Empty;
+
+
+            MainViewModel.GetInstance().Lands = new LandsViewModel();
+            //apilo las view para nevegar entre paginas:
+            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
         }
 
         #endregion
