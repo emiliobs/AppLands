@@ -6,10 +6,44 @@
              Title="Lands.....">
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Lands }" Padding="5">
-            <Label Text="Welcome to Lands....."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                FontAttributes="Bold"/>
+            <ListView  
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemsSource="{Binding Lands}"
+                RefreshCommand="{Binding RefreshCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>              
+                                <StackLayout Grid.Column="0" VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        Text="{Binding Name}"
+                                        TextColor="Black">
+                                    </Label> 
+                                    <Label
+                                        Text="{Binding Capital}"
+                                        TextColor="Black">
+                                    </Label>
+                                </StackLayout>
+
+                                <Image 
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    Source="ic_chevron.png">
+                                </Image>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,7 @@
 ﻿
 
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using Xamarin.Forms;
 
 namespace AppLands.ViewModels
@@ -22,6 +24,9 @@ namespace AppLands.ViewModels
 
         private ObservableCollection<Lands> lands;
 
+        private bool isRefreshing;
+        private bool refreshCommand;
+
         #endregion
 
         #region Properties
@@ -36,6 +41,20 @@ namespace AppLands.ViewModels
             }
         }
 
+        public bool IsRefreshing
+        {
+            get => this.isRefreshing;
+
+            set
+            {
+
+                if (isRefreshing != value) SetValue(ref isRefreshing, value);
+                
+            }
+        }
+
+       
+
         #endregion
 
         #region Constructor
@@ -49,14 +68,27 @@ namespace AppLands.ViewModels
 
         #endregion
 
+        #region Commands
+
+        public ICommand RefreshCommand
+        {
+            get => new RelayCommand(LoandLands);
+        }
+
+        #endregion
+
         #region Methods
 
         private async void LoandLands()
         {
+            //aqui refeesco la lista: 
+            this.IsRefreshing = true;
+
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
+                this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Accept");
 
                 //aqui desapilo la navegacion entre paginas:
@@ -72,6 +104,8 @@ namespace AppLands.ViewModels
 
             if (!response.IsSuccess)
             {
+                this.IsRefreshing = false;
+
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
 
                 //aqui desapilo la navegacion entre paginas:
@@ -85,8 +119,12 @@ namespace AppLands.ViewModels
 
             //aqui ya lotengo en memoria en una lista obserbablecollection:
             this.Lands = new ObservableCollection<Lands>(list);
+
+            this.IsRefreshing = false;
         }
 
         #endregion
+
+       
     }
 }
