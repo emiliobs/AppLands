@@ -53,6 +53,18 @@ namespace AppLands.ViewModels
 
         private async void LoandLands()
         {
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Accept");
+
+                //aqui desapilo la navegacion entre paginas:
+                await Application.Current.MainPage.Navigation.PopAsync();
+
+                return;
+            }
+
             var response = await this.apiService.GetList<Lands>(
                 "http://restcountries.eu"
                 , "/rest"
@@ -61,6 +73,9 @@ namespace AppLands.ViewModels
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+
+                //aqui desapilo la navegacion entre paginas:
+                await Application.Current.MainPage.Navigation.PopAsync();
 
                 return;
             }
