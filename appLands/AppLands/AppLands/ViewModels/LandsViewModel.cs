@@ -23,7 +23,8 @@ namespace AppLands.ViewModels
 
         #region Attributes
 
-        private ObservableCollection<Lands> lands;
+        //private ObservableCollection<Lands> lands;
+        private ObservableCollection<LandItemViewModel> lands;
 
         private bool isRefreshing;
         private bool refreshCommand;
@@ -46,7 +47,7 @@ namespace AppLands.ViewModels
             }
         }
 
-        public ObservableCollection<Lands> Lands
+        public ObservableCollection<LandItemViewModel> Lands
         {
             get => lands;
             set
@@ -106,11 +107,12 @@ namespace AppLands.ViewModels
         {
             if (string.IsNullOrEmpty(this.Filter))
             {
-                 this.Lands = new ObservableCollection<Lands>(this.landsList);
+                 //this.Lands = new ObservableCollection<LandItemViewModel>(this.landsList);
+                this.lands = new ObservableCollection<LandItemViewModel>(this.ToLandItemViewModel());
             }
             else
             {
-                this.Lands = new ObservableCollection<Lands>(this.landsList.Where(
+                this.Lands = new ObservableCollection<LandItemViewModel>(this.ToLandItemViewModel().Where(
                     l => l.Name.ToLower().Contains(this.Filter.ToLower()) 
                          ||
                          l.Capital.ToLower().Contains(this.Filter.ToLower())));
@@ -156,9 +158,46 @@ namespace AppLands.ViewModels
             this.landsList = (List<Lands>)response.Result;
 
             //aqui ya lotengo en memoria en una lista obserbablecollection:
-            this.Lands = new ObservableCollection<Lands>(this.landsList);
+            this.Lands = new ObservableCollection<LandItemViewModel>(
+                this.ToLandItemViewModel());
 
             this.IsRefreshing = false;
+        }
+
+        private IEnumerable<LandItemViewModel> ToLandItemViewModel()
+        {
+            return this.landsList.Select(l => new LandItemViewModel
+            {
+
+                Alpha3Code = l.Alpha3Code,
+                Name = l.Name,
+                Capital = l.Capital,
+                AltSpellings = l.AltSpellings,
+                Area = l.Area,
+                Borders = l.Borders,
+                CallingCodes = l.CallingCodes,
+                Cioc = l.Cioc,
+                Currencies = l.Currencies,
+                Demonym = l.Demonym,
+                Flag = l.Flag,
+                Gini = l.Gini,
+                Languages = l.Languages,
+                Latlng = l.Latlng,
+                Llpha2Code = l.Llpha2Code,
+                NativeName = l.NativeName,
+                NumericCode = l.NumericCode,
+                Population = l.Population,
+                Region = l.Region,
+                RegionalBlocs = l.RegionalBlocs,
+                Subregion = l.Subregion,
+                Timezones = l.Timezones,
+                TopLevelDomain = l.TopLevelDomain,
+                Translations = l.Translations,        
+
+            });
+
+
+
         }
 
         #endregion

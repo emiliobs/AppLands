@@ -2,53 +2,63 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppLands.Views.LandsPage"  
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}" 
+             BackgroundColor="Silver"
              Title="Lands.....">
     <ContentPage.Content>
         <StackLayout 
-            BindingContext="{Binding Lands }" 
-            Padding="5">
+            BindingContext="{Binding Lands }">
                   
-            <SearchBar                   
+            <SearchBar 
+                BackgroundColor="White"
                 Text="{Binding Filter, Mode=TwoWay}"
                 Placeholder="Search....."
                 SearchCommand="{Binding SearchCommand}">
             </SearchBar>
 
             <ListView  
+                BackgroundColor="Silver"
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                 ItemsSource="{Binding Lands}"
-                RefreshCommand="{Binding RefreshCommand}">
+                RefreshCommand="{Binding RefreshCommand}"
+                SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>              
-                                <StackLayout Grid.Column="0" VerticalOptions="Center">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="Medium"
-                                        Text="{Binding Name}"
-                                        TextColor="Black">
-                                    </Label> 
-                                    <Label
-                                        Text="{Binding Capital}"
-                                        TextColor="Black">
-                                    </Label>
-                                </StackLayout>
+                        <ViewCell> 
+                            <Frame Margin="5" CornerRadius="20" HasShadow="True">
+                                
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectLandCommand}"></TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
 
-                                <Image 
-                                    Grid.Column="1"
-                                    HorizontalOptions="End"
-                                    Source="ic_chevron.png">
-                                </Image>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0" VerticalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            Text="{Binding Name}"
+                                            TextColor="Black">
+                                        </Label>
+                                        <Label
+                                            Text="{Binding Capital}"
+                                            TextColor="Black">
+                                        </Label>
+                                    </StackLayout>
 
-                            </Grid>
+                                    <Image 
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Source="ic_chevron.png">
+                                    </Image>
+
+                                </Grid> 
+                            </Frame>  
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
