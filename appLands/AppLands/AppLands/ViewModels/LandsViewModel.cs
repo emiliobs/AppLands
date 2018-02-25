@@ -41,6 +41,7 @@ namespace AppLands.ViewModels
             {
 
                 if (this.filter != value) SetValue(ref filter, value);
+                this.Search();
 
             }
         }
@@ -110,7 +111,9 @@ namespace AppLands.ViewModels
             else
             {
                 this.Lands = new ObservableCollection<Lands>(this.landsList.Where(
-                    l => l.Name.ToLower().Contains(this.Filter.ToLower())));
+                    l => l.Name.ToLower().Contains(this.Filter.ToLower()) 
+                         ||
+                         l.Capital.ToLower().Contains(this.Filter.ToLower())));
             }
         }
 
