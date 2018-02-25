@@ -1,5 +1,6 @@
 ﻿
 
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Xamarin.Forms;
@@ -26,10 +27,23 @@ namespace AppLands.ViewModels
 
         private bool isRefreshing;
         private bool refreshCommand;
-
+        private string filter;
+        private List<Lands> landsList;
         #endregion
 
         #region Properties
+
+        public string Filter
+        {
+            get => this.filter;
+
+            set
+            {
+
+                if (this.filter != value) SetValue(ref filter, value);
+
+            }
+        }
 
         public ObservableCollection<Lands> Lands
         {
@@ -74,10 +88,31 @@ namespace AppLands.ViewModels
         {
             get => new RelayCommand(LoandLands);
         }
+            
+
+        public ICommand SearchCommand
+        {
+            get =>  new RelayCommand(Search);
+        }
+
+
 
         #endregion
 
         #region Methods
+
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                 this.Lands = new ObservableCollection<Lands>(this.landsList);
+            }
+            else
+            {
+                this.Lands = new ObservableCollection<Lands>(this.landsList.Where(
+                    l => l.Name.ToLower().Contains(this.Filter.ToLower())));
+            }
+        }
 
         private async void LoandLands()
         {
@@ -115,10 +150,10 @@ namespace AppLands.ViewModels
             }
 
             //casteos elel resultado que llega de la api con una list:
-            var list = (List<Lands>)response.Result;
+            this.landsList = (List<Lands>)response.Result;
 
             //aqui ya lotengo en memoria en una lista obserbablecollection:
-            this.Lands = new ObservableCollection<Lands>(list);
+            this.Lands = new ObservableCollection<Lands>(this.landsList);
 
             this.IsRefreshing = false;
         }
