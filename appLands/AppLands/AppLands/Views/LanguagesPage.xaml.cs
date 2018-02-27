@@ -1,14 +1,14 @@
 ﻿
+
 namespace AppLands.Views
 {
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
-
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
+	public partial class LanguagesPage : ContentPage
 	{
-		public LoginPage ()
+		public LanguagesPage ()
 		{
 			InitializeComponent ();
 		}
