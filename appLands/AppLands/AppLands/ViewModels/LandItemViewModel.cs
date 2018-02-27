@@ -1,4 +1,9 @@
 ﻿
+using System.Windows.Input;
+using AppLands.Views;
+using GalaSoft.MvvmLight.Command;
+using Xamarin.Forms;
+
 namespace AppLands.ViewModels
 {
     using System;
@@ -10,10 +15,23 @@ namespace AppLands.ViewModels
     {
         #region Commands
 
-        //public object SelectLandCommand
-        //{
-        //    get { throw new NotImplementedException(); }
-        //}
+        public ICommand SelectLandCommand
+        {
+            get => new RelayCommand(SelectLand);
+
+
+
+        }
+        #endregion
+
+        #region Methods
+
+        private async void SelectLand()
+        {
+            MainViewModel.GetInstance().Land = new LandViewModel(this);
+
+            await Application.Current.MainPage.Navigation.PushAsync(new LandPage());
+        }
 
         #endregion
     }

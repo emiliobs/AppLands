@@ -183,7 +183,7 @@ namespace AppLands.ViewModels
                 Gini = l.Gini,
                 Languages = l.Languages,
                 Latlng = l.Latlng,
-                Llpha2Code = l.Llpha2Code,
+                Alpha2Code = l.Alpha2Code,
                 NativeName = l.NativeName,
                 NumericCode = l.NumericCode,
                 Population = l.Population,

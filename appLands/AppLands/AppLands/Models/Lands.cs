@@ -15,7 +15,7 @@ namespace AppLands.Models
         public List<string> TopLevelDomain { get; set; }
 
         [JsonProperty(PropertyName = "alpha2Code")]
-        public string Llpha2Code { get; set; }
+        public string Alpha2Code { get; set; }
 
         [JsonProperty(PropertyName = "alpha3Code")]
         public string Alpha3Code { get; set; }
