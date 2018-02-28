@@ -24,12 +24,11 @@ namespace AppLands.ViewModels
         #region Attributes
 
         //private ObservableCollection<Lands> lands;
-        private ObservableCollection<LandItemViewModel> lands;
-
+        private ObservableCollection<LandItemViewModel> lands;      
         private bool isRefreshing;
         private bool refreshCommand;
         private string filter;
-        private List<Lands> landsList;
+        //private List<Lands> landsList;
         #endregion
 
         #region Properties
@@ -155,7 +154,7 @@ namespace AppLands.ViewModels
             }
 
             //casteos elel resultado que llega de la api con una list:
-            this.landsList = (List<Lands>)response.Result;
+            MainViewModel.GetInstance().LandsList = (List<Lands>)response.Result;
 
             //aqui ya lotengo en memoria en una lista obserbablecollection:
             this.Lands = new ObservableCollection<LandItemViewModel>(
@@ -166,7 +165,7 @@ namespace AppLands.ViewModels
 
         private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
-            return this.landsList.Select(l => new LandItemViewModel
+            return MainViewModel.GetInstance().LandsList.Select(l => new LandItemViewModel
             {
 
                 Alpha3Code = l.Alpha3Code,
