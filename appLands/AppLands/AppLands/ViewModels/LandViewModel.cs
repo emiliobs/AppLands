@@ -19,11 +19,22 @@ namespace AppLands.ViewModels
 
         private ObservableCollection<Border> borders;
         private ObservableCollection<Currency> currencies;
+        private ObservableCollection<Language> languages;
         private Border code;
 
         #endregion
 
         #region Properties
+
+        public ObservableCollection<Language> Languages
+        {
+            get => this.languages;
+            set
+            {
+                if (this.languages != value) SetValue(ref languages, value);
+                
+            }
+        }
 
         public ObservableCollection<Currency> Currencies
         {
@@ -73,6 +84,7 @@ namespace AppLands.ViewModels
             this.Land = land;
             this.LoadBorders();
             this.Currencies = new ObservableCollection<Currency>(this.Land.Currencies);
+            this.Languages = new ObservableCollection<Language>(this.Land.Languages);
         }
 
         #endregion
