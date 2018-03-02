@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using AppLands.Helpers;
 using AppLands.Services;
 using AppLands.Views;
 
@@ -111,9 +112,9 @@ namespace AppLands.ViewModels
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an Email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailValidate,
+                    Languages.Accept);
 
                 return;
             }
@@ -121,9 +122,9 @@ namespace AppLands.ViewModels
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     "You must enter a Password.",
-                    "Accept");
+                    Languages.Accept);
 
                 return;
             }
@@ -139,7 +140,9 @@ namespace AppLands.ViewModels
                 this.IsRunning = false;
                 this.IsEnabled = true;
 
-                await Application.Current.MainPage.DisplayAlert("Error", conecction.Message, "Accept.");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, 
+                    conecction.Message, 
+                    Languages.Accept);
 
                 return;
             }
@@ -152,7 +155,9 @@ namespace AppLands.ViewModels
                 this.IsRunning = false;
                 this.IsEnabled = true;
 
-                await Application.Current.MainPage.DisplayAlert("Error","Something was wrong, please try again later.","Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error,
+                    "Something was wrong, please try again later.",
+                    Languages.Accept);
 
                 return;
             }
@@ -162,7 +167,9 @@ namespace AppLands.ViewModels
                 this.IsRunning = false;
                 this.IsEnabled = true;
 
-                await Application.Current.MainPage.DisplayAlert("Error", token.ErrorDescription, "Acept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, 
+                    token.ErrorDescription, 
+                    Languages.Accept);
 
                 this.Password = String.Empty;
                 
