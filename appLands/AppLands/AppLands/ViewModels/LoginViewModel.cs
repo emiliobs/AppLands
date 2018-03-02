@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+using AppLands.Services;
 using AppLands.Views;
 
 namespace AppLands.ViewModels
@@ -9,6 +11,13 @@ namespace AppLands.ViewModels
     using System.Windows.Input;
     public class LoginViewModel : BaseViewModel
     {
+
+        #region Services
+
+        private ApiService apiService;
+
+        #endregion
+
         #region Atributtes
 
         //private string email;
@@ -72,11 +81,13 @@ namespace AppLands.ViewModels
         #region Contructor
         public LoginViewModel()
         {
+
+            this.apiService = new ApiService();
             this.IsRemember = true;
             this.IsEnabled = true;
 
-            this.Email = "barrera_emilio@hotmail.com";
-            this.Password = "Eabs123.";
+            //this.Email = "barrera_emilio@hotmail.com";
+            //this.Password = "Eabs123.";
         }
         #endregion
 
@@ -120,29 +131,76 @@ namespace AppLands.ViewModels
             this.IsEnabled = false;
 
 
-            if (this.Email != "barrera_emilio@hotmail.com" || this.Password != "Eabs123.")
+            var conecction = await this.apiService.CheckConnection();
+
+            if (!conecction.IsSuccess)
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
 
-                await Application.Current.MainPage.DisplayAlert(
-                     "Error",
-                     "Email or Password incorrect.!",
-                     "Accept");
-
-                this.Password = string.Empty;
+                await Application.Current.MainPage.DisplayAlert("Error", conecction.Message, "Accept.");
 
                 return;
             }
+
+             //here take del apiservice gettoken:
+            var token = await this.apiService.GetToken("http://landsapi1.azurewebsites.net", this.Email, this.Password);
+
+            if (token == null)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert("Error","Something was wrong, please try again later.","Accept");
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert("Error", token.ErrorDescription, "Acept");
+
+                this.Password = String.Empty;
+                
+                return;
+            }
+
+            //apuntador a la mainviewmodel:
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token;
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            //aqui pregunto que me de el toquen para saber que si es usted:
+
+
+
+            //if (this.Email != "barrera_emilio@hotmail.com" || this.Password != "Eabs123.")
+            //{
+            //    this.IsRunning = false;
+            //    this.IsEnabled = true;
+
+            //    await Application.Current.MainPage.DisplayAlert(
+            //         "Error",
+            //         "Email or Password incorrect.!",
+            //         "Accept");
+
+            //    this.Password = string.Empty;
+
+            //    return;
+            //}
 
             //await Application.Current.MainPage.DisplayAlert("OK", "Fuck yeahh", "Accept");
             
             //clear text:
             this.Email = string.Empty;
-            this.Password = string.Empty;
+            this.Password = string.Empty;   
 
-
-            MainViewModel.GetInstance().Lands = new LandsViewModel();
+            //MainViewModel.GetInstance().Lands = new LandsViewModel();
+            mainViewModel.Lands = new LandsViewModel();
             //apilo las view para nevegar entre paginas:
             await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
 
