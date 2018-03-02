@@ -83,11 +83,12 @@ namespace AppLands.ViewModels
         {
 
             this.apiService = new ApiService();
+
             this.IsRemember = true;
             this.IsEnabled = true;
 
-            //this.Email = "barrera_emilio@hotmail.com";
-            //this.Password = "Eabs123.";
+            this.Email = "barrera_emilio@hotmail.com";
+            this.Password = "Eabs123.";
         }
         #endregion
 
