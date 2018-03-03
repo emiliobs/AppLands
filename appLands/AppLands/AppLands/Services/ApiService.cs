@@ -1,4 +1,6 @@
-﻿namespace AppLands.Services
+﻿
+
+namespace AppLands.Services
 {
     using AppLands.Models;
     using Newtonsoft.Json;
@@ -10,7 +12,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Plugin.Connectivity;
-
+    using Lands.Domain;
 
     public class ApiService
     {
